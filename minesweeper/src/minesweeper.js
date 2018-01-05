@@ -1,6 +1,12 @@
-// Instead of creating one singular game board, we're going to create two: one
-//  board for the player's guesses and another board that will hold the actual
-//  bomb locations.
+/*  minesweeper.js
+  Contains two classes: one to create a game and one to create a board (which
+  creates both a bomb board and a players board).
+
+  ISSUE:
+    - after running minesweeper.js, if there is a tile flip that doesn't have
+        a bomb underneath, 'undefined' is printed to the console... narrowed
+        this down to line 32 below (console.log(this._board.print())).
+*/
 
 /* start Game class */
 class Game {
@@ -214,4 +220,4 @@ class Board {
   FUNCTION CALLS
 */
 const g = new Game(3, 3, 3);
-g.playMove(3,3);
+g.playMove(0,0);
