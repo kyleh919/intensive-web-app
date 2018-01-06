@@ -6,11 +6,11 @@ export class Board {
     this._playerBoard = Board.generatePlayerBoard(numberOfRows, numberOfColumns);
     this._bombBoard = Board.generateBombBoard(numberOfRows, numberOfColumns, numberOfBombs);
 
-    console.log();
-    console.log(this._playerBoard);
-    console.log();
-    console.log(this._bombBoard);
-    console.log();
+    // console.log();
+    // console.log(this._playerBoard);
+    // console.log();
+    // console.log(this._bombBoard);
+    // console.log();
   }
 
   /* getters */
