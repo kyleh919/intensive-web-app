@@ -1,7 +1,7 @@
 /* Business.js */
 /*
-Business component purpose: represent how a business/restaurant in
-Ravenous will be formatted and styled.
+Business component purpose: Simulates a single business. Represents how a
+business/restaurant in Ravenous will be formatted and styled.
 */
 
 import React from 'react';

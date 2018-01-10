@@ -1,7 +1,8 @@
 /* BusinessList.js */
 /*
-BusinessList component purpose: simulate what a returned list of businesses
-would look like in Ravenous (after querying the Yelp API).
+BusinessList component purpose: Simulate a list of businesses. Simulate what a
+returned list of businesses would look like in Ravenous (after querying the
+Yelp API).
 
 Components used:
 -Business
