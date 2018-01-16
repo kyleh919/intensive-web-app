@@ -17,11 +17,67 @@ let sortByOptions = {
 };
 
 class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      term: '',
+      location: '',
+      sortBy: 'best_match'
+     };
+
+     this.handleTermByChange = this.handleTermByChange.bind(this);
+     this.handleLocationChange = this.handleLocationChange.bind(this);
+     this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  // returns the search bar CSS class that should be selected on screen
+  getSortByClass(sortByOption) {
+    // console.log("    this.state.sortBy = " + this.state.sortBy);
+    // console.log("    sortByOption = " + sortByOption);
+    if(this.state.sortBy === sortByOption) {
+      return 'active';
+    } else {
+      return '';
+    }
+  }
+
+  // sets the state of the three sorting options
+  handleSortByChange(sortByOption) {
+    this.setState({ sortBy: sortByOption });
+  }
+
+  handleTermByChange(event) {
+    this.setState({ term: event.target.value });
+  }
+
+  handleLocationChange(event) {
+    this.setState({ location: event.target.value });
+  }
+
+  handleSearch(event) {
+    this.props.searchYelp(this.state.term, this.state.location, this.state.sortBy);
+    event.preventDefault();
+  }
+
   renderSortByOptions() {
     return Object.keys(sortByOptions).map(sortByOption => {
+      // sortByOption = a key
+      // sortByOptionValue = a value
       let sortByOptionValue = sortByOptions[sortByOption];
-      console.log(sortByOptionValue);
-      return <li key={sortByOptionValue}>{sortByOption}</li>;
+      // console.log("sortByOptionValue = " + sortByOptionValue);
+
+      /*
+        className styles the sort option based on what the user has selected, if
+          'active' per getSortByClass then it will be highlighted
+        onClick will set a sort option to sortBy in the state
+      */
+      return (
+        <li key={sortByOptionValue} className={this.getSortByClass(sortByOptionValue)}
+            onClick={this.handleSortByChange.bind(this, sortByOptionValue)}>
+          {sortByOption}
+        </li>
+      );
     });
   }
 
@@ -34,11 +90,11 @@ class SearchBar extends React.Component {
           </ul>
         </div>
         <div className="SearchBar-fields">
-          <input placeholder="Search Businesses" />
-          <input placeholder="Where?" />
+          <input placeholder="Search Businesses" onClick={this.handleTermByChange} />
+          <input placeholder="Where?" onClick={this.handleLocationChange} />
         </div>
         <div className="SearchBar-submit">
-          <a>Lets Go</a>
+          <a onClick={this.handleSearch}>Lets Go</a>
         </div>
       </div>
     );
