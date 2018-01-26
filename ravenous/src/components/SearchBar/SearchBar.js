@@ -1,10 +1,8 @@
 /* SearchBar.js */
 /*
 SearchBar component purpose: Search for businesses. Communicates with the Yelp
-API.
-
-Should allow users to search businesses by: best match, highest rated, or most
-  reviewed.
+API. Allows users to search businesses by: best match, highest rated, or most
+reviewed.
 */
 
 import React from 'react';
