@@ -3,6 +3,9 @@ import './Track.css';
 
 class Track extends Component {
   renderAction() {
+    // TODO: this is a hardcoded value, must remove in future
+    const isRemoval = true;
+    
     if(isRemoval) {
       return '-';
     } else {
