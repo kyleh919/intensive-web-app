@@ -13,7 +13,7 @@ class TrackList extends Component {
         {
           this.props.tracks.map(track => {
             console.log(track.id);
-            return <Track key={track.id} />
+            return <Track key={track.id} track={track} />
           })
         }
 
