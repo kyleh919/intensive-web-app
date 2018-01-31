@@ -28,7 +28,7 @@ class Track extends Component {
         </div>
         <a className="Track-action">
           {/* <!-- + or - will go here --> */}
-          {this.renderAction}
+          {this.renderAction()}
         </a>
       </div>
     );

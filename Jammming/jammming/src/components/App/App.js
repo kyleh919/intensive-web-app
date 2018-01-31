@@ -3,7 +3,7 @@ import './App.css';
 
 import SearchResults from '../SearchResults/SearchResults';
 // import SearchBar from '../SearchBar/SearchBar';
-// import PlayList from '../Playlist/Playlist';
+import PlayList from '../Playlist/Playlist';
 
 class App extends Component {
   constructor(props) {
@@ -27,6 +27,12 @@ class App extends Component {
         artist: 'G-Eazy',
         album: 'The Beautiful & Damned',
         id: '3'
+      }],
+      playlistName: "My Playlist",
+      playlistTracks: [{
+        name: 'Trip',
+        artist: 'San Holo',
+        album: 'The Trip - EP'
       }]
     };
   }
@@ -41,6 +47,7 @@ class App extends Component {
             {/* <!-- Add a SearchResults component --> */}
             <SearchResults searchResults={this.state.SearchResults} />
             {/* <!-- Add a Playlist component --> */}
+            <PlayList playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
           </div>
         </div>
       </div>
