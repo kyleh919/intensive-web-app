@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import './Track.css';
 
 class Track extends Component {
+  constructor(props) {
+    super(props);
+    this.addTrack = this.addTrack.bind(this);
+  }
+  
   renderAction() {
     // TODO: this is a hardcoded value, must remove in future
     const isRemoval = true;
@@ -13,6 +18,11 @@ class Track extends Component {
     }
   }
   
+  // ties the addTrack method to the + sign
+  addTrack() {
+    this.props.onAdd(this.props.track);
+  }
+
   render() {
     return (
       <div className="Track">
@@ -28,7 +38,8 @@ class Track extends Component {
         </div>
         <a className="Track-action">
           {/* <!-- + or - will go here --> */}
-          {this.renderAction()}
+          {/* {this.renderAction()} */}
+          <p onClick={this.addTrack}>+</p>
         </a>
       </div>
     );

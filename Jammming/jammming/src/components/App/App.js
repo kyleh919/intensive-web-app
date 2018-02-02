@@ -9,6 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    /* hardcoded values */
     this.state = {
       SearchResults: [{
         name: 'My Own Hymn',
@@ -32,9 +33,42 @@ class App extends Component {
       playlistTracks: [{
         name: 'Trip',
         artist: 'San Holo',
-        album: 'The Trip - EP'
+        album: 'The Trip - EP',
+        id: '4'
+      },
+      {
+        name: 'Antidote',
+        artist: 'Travis Scott',
+        album: 'Rodeo',
+        id: '3'
       }]
     };
+  }
+
+  /* this method will verify if a track is already in the playlist when the user clicks the + sign.
+      if the track is not in the playlist the track will be added
+  */
+  addTrack(track) {
+    // console.log("track = " + JSON.stringify(track));
+    // console.log("playlist = " + JSON.stringify(this.state.playlistTracks));
+    let ctr = 0;
+    for(let i=0; i < this.state.playlistTracks.length; i++) {
+      // console.log("\tplaylist track name = " + this.state.playlistTracks[i].name);
+      // console.log("\tplaylist track id = " + this.state.playlistTracks[i].id);
+      // console.log("\ttrack to add id = " + track.id);
+      if(track.id === this.state.playlistTracks[i].id) {
+        alert('Track is in playlist already!');
+        return;
+      } else {
+        ctr++;
+        // console.log("\t\tctr = " + ctr);
+      }
+    }
+    if(ctr !== 0) {
+      console.log("add track to playlist!");
+      this.state.playlistTracks.push(track);
+      console.log("new playlistTracks = " + JSON.stringify(this.state.playlistTracks));
+    }
   }
 
   render() {
@@ -45,7 +79,7 @@ class App extends Component {
           {/* <!-- Add a SearchBar component --> */}
           <div className="App-playlist">
             {/* <!-- Add a SearchResults component --> */}
-            <SearchResults searchResults={this.state.SearchResults} />
+            <SearchResults searchResults={this.state.SearchResults} onAdd={this.addTrack.bind(this)} />
             {/* <!-- Add a Playlist component --> */}
             <PlayList playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
           </div>
