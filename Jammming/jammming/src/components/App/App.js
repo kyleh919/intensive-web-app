@@ -45,19 +45,10 @@ class App extends Component {
         name: 'Antidote',
         artist: 'Travis Scott',
         album: 'Rodeo',
-        id: '3'
+        id: '5'
       }]
     };
   }
-
-  updatePlaylist(track) {
-    this.setState({
-      playlistTracks: track
-    });
-  }
-
-  // TODO: Have to add rendering ability to remove and add tracks from lists if buttons are clicked
-  // TODO: use setState instead of push and splice
 
   /* this method will verify if a track is already in the playlist when the user clicks the + sign.
       if the track is not in the playlist the track will be added
@@ -65,9 +56,10 @@ class App extends Component {
   addTrack(track) {
     // console.log("track = " + JSON.stringify(track));
     // console.log("playlist = " + JSON.stringify(this.state.playlistTracks));
+
     let ctr = 0;
     for(let i=0; i < this.state.playlistTracks.length; i++) {
-      console.log("\tplaylist track name = " + this.state.playlistTracks[i].name);
+      // console.log("\tplaylist track name = " + this.state.playlistTracks[i].name);
       // console.log("\tplaylist track id = " + this.state.playlistTracks[i].id);
       // console.log("\ttrack to add id = " + track.id);
       if(track.id === this.state.playlistTracks[i].id) {
@@ -81,10 +73,12 @@ class App extends Component {
     if(ctr !== 0) {
       console.log("add track to playlist!");
 
+      let updatedPlaylist = this.state.playlistTracks;
+      updatedPlaylist.push(track);
 
-      this.state.playlistTracks.push(track);
-      // this.updatePlaylist(track);
-      
+      this.setState({
+        playlistTracks: updatedPlaylist
+      });      
       
       console.log("new playlistTracks = " + JSON.stringify(this.state.playlistTracks));
     }
@@ -93,26 +87,30 @@ class App extends Component {
   /* removes a track via it's id if the - sign is clicked
    */
   removeTrack(track) {
-    console.log(track);
+    // console.log(track);
     
     let ctr = 0;
     for(let i=0; i < this.state.playlistTracks.length; i++) {
-      console.log("\tplaylist track name = " + this.state.playlistTracks[i].name);
-      console.log("\tplaylist track id = " + this.state.playlistTracks[i].id);
-      console.log("\ttrack to remove id = " + track.id);
+      // console.log("\tplaylist track name = " + this.state.playlistTracks[i].name);
+      // console.log("\tplaylist track id = " + this.state.playlistTracks[i].id);
+      // console.log("\ttrack to remove id = " + track.id);
     
       if(track.id === this.state.playlistTracks[i].id) {
-        alert("remove track found");
+        // console.log('\t\tctr = ' + ctr);
+        
+        let updatedPlaylist = this.state.playlistTracks;
+        updatedPlaylist.splice(ctr,1);
 
-        console.log('\t\tctr = ' + ctr);
-        this.state.playlistTracks.splice(ctr,1);
-        console.log('\t\tplaylist after removal = ' + JSON.stringify(this.state.playlistTracks));
+        this.setState({
+          playlistTracks: updatedPlaylist
+        });
+
+        // console.log('\t\tplaylist after removal = ' + JSON.stringify(this.state.playlistTracks));
         return;
       } else {
         ctr++;
       }
     }
-    alert('passed logic')
   }
 
   updatePlaylistName(name) {
