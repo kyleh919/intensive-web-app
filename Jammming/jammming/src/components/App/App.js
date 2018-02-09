@@ -12,6 +12,7 @@ class App extends Component {
     /* binds */
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
 
     /* hardcoded values */
     this.state = {
@@ -54,6 +55,9 @@ class App extends Component {
       playlistTracks: track
     });
   }
+
+  // TODO: Have to add rendering ability to remove and add tracks from lists if buttons are clicked
+  // TODO: use setState instead of push and splice
 
   /* this method will verify if a track is already in the playlist when the user clicks the + sign.
       if the track is not in the playlist the track will be added
@@ -111,6 +115,13 @@ class App extends Component {
     alert('passed logic')
   }
 
+  updatePlaylistName(name) {
+    this.setState({
+      playlistName: name
+    });
+    // console.log("new playlistName = " + this.state.playlistName)
+  }
+
   render() {
     return (
       <div>
@@ -121,7 +132,7 @@ class App extends Component {
             {/* <!-- Add a SearchResults component --> */}
             <SearchResults searchResults={this.state.SearchResults} onAdd={this.addTrack} />
             {/* <!-- Add a Playlist component --> */}
-            <PlayList playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} />
+            <PlayList playlistName={this.state.playlistName} onNameChange={this.updatePlaylistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} />
           </div>
         </div>
       </div>
