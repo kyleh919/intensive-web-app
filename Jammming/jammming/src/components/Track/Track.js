@@ -5,12 +5,11 @@ class Track extends Component {
   constructor(props) {
     super(props);
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
   
-  renderAction() {
-    // TODO: this is a hardcoded value, must remove in future
-    const isRemoval = true;
-    
+  // returns a - or + based on the isRemoval prop
+  renderAction(isRemoval) {
     if(isRemoval) {
       return '-';
     } else {
@@ -21,6 +20,11 @@ class Track extends Component {
   // ties the addTrack method to the + sign
   addTrack() {
     this.props.onAdd(this.props.track);
+  }
+
+  // ties the removeTrack method to the - sign
+  removeTrack() {
+    this.props.onRemove(this.props.track);
   }
 
   render() {
@@ -37,9 +41,11 @@ class Track extends Component {
           </p>
         </div>
         <a className="Track-action">
-          {/* <!-- + or - will go here --> */}
-          {/* {this.renderAction()} */}
-          <p onClick={this.addTrack}>+</p>
+          {/* the add or remove action will occur and display based on the isRemoval prop
+              which is set in either the Playlist or SearchResult component */}
+          <p onClick={this.props.isRemoval ? this.removeTrack : this.addTrack}>
+            {this.renderAction(this.props.isRemoval)}
+          </p>
         </a>
       </div>
     );
