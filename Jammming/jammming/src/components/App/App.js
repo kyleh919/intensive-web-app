@@ -13,6 +13,7 @@ class App extends Component {
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
 
     /* hardcoded values */
     this.state = {
@@ -20,33 +21,39 @@ class App extends Component {
         name: 'My Own Hymn',
         artist: 'Above & Beyond',
         album: 'Common Ground',
-        id: '1'
+        id: '1',
+        uri: 'spotify:track:AAAA1'
       },
       {
         name: 'Feel Tall',
         artist: 'OnCue',
         album: 'Can\'t Wait',
-        id: '2'
+        id: '2',
+        uri: 'spotify:track:AAAA2'
       },
       {
         name: 'Pray For Me',
         artist: 'G-Eazy',
         album: 'The Beautiful & Damned',
-        id: '3'
+        id: '3',
+        uri: 'spotify:track:AAAA3'
       }],
       playlistName: "My Playlist",
       playlistTracks: [{
         name: 'Trip',
         artist: 'San Holo',
         album: 'The Trip - EP',
-        id: '4'
+        id: '4',
+        uri: 'spotify:track:AAAA4'
       },
       {
         name: 'Antidote',
         artist: 'Travis Scott',
         album: 'Rodeo',
-        id: '5'
-      }]
+        id: '5',
+        uri: 'spotify:track:AAAA5'
+      }],
+      playlistURIs: []
     };
   }
 
@@ -113,11 +120,28 @@ class App extends Component {
     }
   }
 
+  // updates the playlist name when the user adds new input to the playlist name
   updatePlaylistName(name) {
     this.setState({
       playlistName: name
     });
     // console.log("new playlistName = " + this.state.playlistName)
+  }
+
+  // 
+  savePlaylist() {
+    console.log('saving!');
+
+    let trackURIs = [];
+    this.state.playlistTracks.forEach(function(element) {
+      trackURIs.push(element.uri);
+    });
+
+    console.log('\ttrack uris = ' + trackURIs);
+
+    this.setState({
+      playlistURIs: trackURIs
+    });
   }
 
   render() {
@@ -130,7 +154,7 @@ class App extends Component {
             {/* <!-- Add a SearchResults component --> */}
             <SearchResults searchResults={this.state.SearchResults} onAdd={this.addTrack} />
             {/* <!-- Add a Playlist component --> */}
-            <PlayList playlistName={this.state.playlistName} onNameChange={this.updatePlaylistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} />
+            <PlayList playlistName={this.state.playlistName} onNameChange={this.updatePlaylistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onSave={this.savePlaylist} />
           </div>
         </div>
       </div>
