@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import SearchResults from '../SearchResults/SearchResults';
-// import SearchBar from '../SearchBar/SearchBar';
+import SearchBar from '../SearchBar/SearchBar';
 import PlayList from '../Playlist/Playlist';
 
 class App extends Component {
@@ -14,6 +14,7 @@ class App extends Component {
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
 
     /* hardcoded values */
     this.state = {
@@ -78,7 +79,7 @@ class App extends Component {
       }
     }
     if(ctr !== 0) {
-      console.log("add track to playlist!");
+      // console.log("add track to playlist!");
 
       let updatedPlaylist = this.state.playlistTracks;
       updatedPlaylist.push(track);
@@ -87,7 +88,7 @@ class App extends Component {
         playlistTracks: updatedPlaylist
       });      
       
-      console.log("new playlistTracks = " + JSON.stringify(this.state.playlistTracks));
+      // console.log("new playlistTracks = " + JSON.stringify(this.state.playlistTracks));
     }
   }
 
@@ -128,20 +129,26 @@ class App extends Component {
     // console.log("new playlistName = " + this.state.playlistName)
   }
 
-  // 
+  // saves playlist and sets Spotify URIs
   savePlaylist() {
-    console.log('saving!');
+    // console.log('saving!');
 
     let trackURIs = [];
     this.state.playlistTracks.forEach(function(element) {
       trackURIs.push(element.uri);
     });
 
-    console.log('\ttrack uris = ' + trackURIs);
+    // console.log('\ttrack uris = ' + trackURIs);
 
     this.setState({
       playlistURIs: trackURIs
     });
+    alert('Playlist has been saved.');
+  }
+
+  // obtains the search term used when the user performs a search
+  search(term) {
+    console.log('Search term = ' + term);
   }
 
   render() {
@@ -150,6 +157,7 @@ class App extends Component {
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
           {/* <!-- Add a SearchBar component --> */}
+          <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             {/* <!-- Add a SearchResults component --> */}
             <SearchResults searchResults={this.state.SearchResults} onAdd={this.addTrack} />
