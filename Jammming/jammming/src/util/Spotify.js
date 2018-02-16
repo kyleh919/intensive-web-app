@@ -59,6 +59,61 @@ let Spotify = {
         }
       }
     );
+  },
+
+  savePlaylist(playlistName, trackURIs) {
+    console.log('playlistName = ' + playlistName)
+    console.log('trackURIs = ' + trackURIs)
+    if(playlistName && (trackURIs.length > 0)) {
+      const accessToken = this.getAccessToken();
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      let userID;
+      let playlistID;
+
+      return fetch(`https://api.spotify.com/v1/me`, { headers: headers }).then(
+        response => {
+          if(response.ok) {
+            return response.json()
+          }
+          throw new Error('Error retrieving user id.');
+        }
+      ).then(
+        responseJSON => {
+          userID = responseJSON.id;
+  
+          headers['Content-Type'] = 'application/json';
+          let bodyString = JSON.stringify({  name: playlistName });
+  
+          return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, { method: 'POST', headers: headers, body: bodyString }).then(
+            response => {
+              if(response.ok) {
+                return response.json()
+              }
+              throw new Error("Error creating new playlist for user.");
+            }
+          ).then(
+            responseJSON => {
+              playlistID = responseJSON.id;
+  
+              bodyString = JSON.stringify({ uris: trackURIs });
+              return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {method: 'POST', headers: headers, body: bodyString}).then(
+                response => {
+                  if(!response.ok) {
+                    throw new Error("Error adding tracks to playlist.");
+                  }
+                  return response.json();
+                }
+              ).then(
+                responseJSON => {
+                  return responseJSON.snapshot_id;
+                })
+            })
+        })
+    }
+    else {
+      alert('Error saving playlist! No playlist name is provided or there are no track URIs! Please correct and try again.');
+      return;
+    }
   }
 };
 

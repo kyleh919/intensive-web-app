@@ -118,17 +118,33 @@ class App extends Component {
   savePlaylist() {
     // console.log('saving!');
 
-    let trackURIs = [];
-    this.state.playlistTracks.forEach(function(element) {
-      trackURIs.push(element.uri);
-    });
+    // let trackURIs = [];
+    // this.state.playlistTracks.forEach(function(element) {
+    //   trackURIs.push(element.uri);
+    // });
 
     // console.log('\ttrack uris = ' + trackURIs);
 
+    // this.setState({
+    //   playlistURIs: trackURIs
+    // });
+    // alert('Playlist has been saved.');
+
+
+    let trackURIs = this.state.playlistTracks.map(track => {
+      return track.uri;
+    });
     this.setState({
       playlistURIs: trackURIs
     });
-    alert('Playlist has been saved.');
+
+    Spotify.savePlaylist(this.state.playlistName, trackURIs);
+    this.setState({
+      playlistName: 'New Playlist',
+      searchResults: []
+    });
+
+
   }
 
   // obtains the search term used when the user performs a search
